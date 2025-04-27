@@ -31,9 +31,9 @@ options:
 
 ## Outputs:
 ### [networks.L.label.gii]
-![Network assignments](https://imgur.com/a/ABX14JM)
+![Network assignments](/precision_mapping/data/precision_networks_example.png)
 
 
 ### [network_similarities.L.func.gii]
-![Network assignments](https://imgur.com/qPs1noo)
+![Network assignments](/precision_mapping/data/spatial_similarity_example.png)
 *each is stored as a single darray

@@ -1,6 +1,6 @@
 # precision-mapping
 
-Command-line tool used to perform precision functional mapping of the cortex.
+Command-line tool used for precision functional mapping of the cortex.
 
 - Assigns vertices to networks based on the spatial similarity of their neocortical connectivity profile to a set of template networks (default: [Yeo-17 network parcellation](https://journals.physiology.org/doi/full/10.1152/jn.00338.2011)).
 - Cleans solutions using spatial dilation (default: 25mm<sup>2</sup>).
@@ -30,10 +30,11 @@ options:
 *requires [Connectome Workbench](https://www.humanconnectome.org/software/get-connectome-workbench) to be installed.
 
 ## Outputs:
-### [networks.L.label.gii]
+### networks.L.label.gii
 ![Network assignments](/precision_mapping/data/precision_networks_example.png)
 
 
-### [network_similarities.L.func.gii]
+
+### network_similarities.L.func.gii
 ![Network assignments](/precision_mapping/data/spatial_similarity_example.png)
-*each is stored as a single darray
+Spatial similarity of each network, stored as a GIFTI darray.

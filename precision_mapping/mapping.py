@@ -1,4 +1,5 @@
 import os
+import shutil
 import pandas as pd
 import numpy as np
 import pandas as pd
@@ -120,7 +121,7 @@ def run(params):
 
         # Find clusters that are larger than threshold.
         os.system(f'wb_command -metric-find-clusters \
-            {params["midthickness"]} \
+            {params["surf"]} \
             {tmp}/{label}.{hemi}.label.gii 0 \
             {params["dilation_threshold"]} \
             {tmp}/{label}.{hemi}.func.gii'
@@ -139,7 +140,7 @@ def run(params):
     # Interpolate/dilate removed clusters to nearest network.
     os.system(f'wb_command -metric-dilate \
         {tmp}/filtered_networks.{hemi}.label.gii \
-        {params["midthickness"]} 3000 \
+        {params["surf"]} 3000 \
         {tmp}/tmp_dilated.{hemi}.func.gii \
         -nearest'
     )
@@ -151,3 +152,6 @@ def run(params):
     # Save final dilated solution.
     gii = create_label_gii(dilated_data, hemi, 'precision_networks')
     nib.save(gii, f'{output}/networks.{hemi}.label.gii')
+
+    # Delete temporary files.
+    shutil.rmtree(tmp)

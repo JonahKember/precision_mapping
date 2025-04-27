@@ -6,7 +6,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'precision_mapping = main:main',
+            'precision_mapping = precision_mapping.main:main',
         ],
     },
     install_requires=[

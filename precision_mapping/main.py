@@ -1,7 +1,7 @@
 import os
 import shutil
 import argparse
-import precision_mapping
+from precision_mapping import mapping
 
 
 def check_dependencies():
@@ -30,7 +30,7 @@ def prepare_parameters(args):
         'midthickness': args.midthickness,
         'output': args.output,
         'dilation_threshold': 40,  # units = mm^2, can be modified for more/less dilation.
-        'tmp': os.path.join(args.output, 'tmp'),
+        'tmp': os.path.join(args.output, 'tmp'), # define temporary directory in 'output'.
         'hemi': args.func.split('.func.gii')[0][-1]  # Extract hemisphere from file name.
     }
 
@@ -46,11 +46,18 @@ def ensure_directories_exist(params):
 
 def main():
 
+    # Check for wb_command install.
     check_dependencies()
+
+    # Prepare parameter dictionary.
     args = parse_arguments()
     params = prepare_parameters(args)
+
+    # Create output and tmp dir if non-existant.
     ensure_directories_exist(params)
-    precision_mapping.mapping.run(params)
+
+    # Run precision-mapping pipeline.
+    mapping.run(params)
 
 if __name__ == '__main__':
     main()

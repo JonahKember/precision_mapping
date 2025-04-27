@@ -7,7 +7,6 @@ import nibabel as nib
 from scipy.stats import zscore
 from scipy.spatial.distance import dice
 
-
 def create_func_gii(data, hemi, map_names):
     '''Convert data-arrays to func GIFTI.'''
 
@@ -32,7 +31,7 @@ def create_label_gii(data, hemi, map_name):
     '''Convert data-array to label GIFTI with network colors/keys in label-tabel.'''
 
     # Load template network info.
-    df = pd.read_csv('./data/networks_table.csv')
+    df = pd.read_csv('./precision_mapping/data/networks_table.csv')
     label_names = list(df['label'])
     label_indices = list(df['idx'])
     label_colors = [eval(color) for color in list(df['color'])]
@@ -68,8 +67,8 @@ def run(params):
     tmp = params['tmp']
 
     # Load template networks.
-    df = pd.read_csv('./data/networks_table.csv')
-    template = nib.load(f'./data/networks.32k.{hemi}.label.gii').darrays[0].data
+    df = pd.read_csv('./precision_mapping/data/networks_table.csv')
+    template = nib.load(f'./precision_mapping/data/networks.32k.{hemi}.label.gii').darrays[0].data
     template_labels = list(df['label'])
     template_indices = list(df['idx'])
 
@@ -152,5 +151,3 @@ def run(params):
     # Save final dilated solution.
     gii = create_label_gii(dilated_data, hemi, 'precision_networks')
     nib.save(gii, f'{output}/networks.{hemi}.label.gii')
-
-

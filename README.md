@@ -1,6 +1,6 @@
 # precision-mapping
 
-Command-line tool used for precision functional mapping of the cortex.
+Python package for precision functional mapping of the cortex.
 
 - Assigns vertices to networks based on the spatial similarity of their neocortical connectivity profile to a set of template networks (default: [Yeo-17 network parcellation](https://journals.physiology.org/doi/full/10.1152/jn.00338.2011)).
 - Cleans solutions using spatial dilation (default: 25mm<sup>2</sup>).

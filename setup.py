@@ -2,11 +2,12 @@ from setuptools import setup, find_packages
 
 setup(
     name='precision_mapping',
-    version='0.1',
+    version='0.3',
     packages=find_packages(),
     entry_points={
         'console_scripts': [
             'precision_mapping = precision_mapping.main:main',
+            'feature_extraction = feature_extraction.main:main'
         ],
     },
     install_requires=[

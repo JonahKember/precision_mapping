@@ -29,7 +29,7 @@ options:
 ```
 *requires [Connectome Workbench](https://www.humanconnectome.org/software/get-connectome-workbench) to be installed.
 
-## Outputs:
+## Outputs
 ### networks.L.label.gii
 ![Network assignments](/precision_mapping/data/precision_networks_example.png)
 

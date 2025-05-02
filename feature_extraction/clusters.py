@@ -3,10 +3,9 @@ import numpy as np
 import nibabel as nib
 
 from precision_mapping import mapping
-from feature_extraction import utils
 
 
-def get_clusters(networks, surf, hemi, tmp):
+def get_clusters(params):
     '''
     Identify spatial clusters and their border vertices.
 
@@ -21,7 +20,13 @@ def get_clusters(networks, surf, hemi, tmp):
     borders_gii: GIFTI, border vertices of each spatial cluster are saved as a boolean darray.
     '''
 
-    network_indices, network_labels = utils.get_template_info()
+    # --- Set up ---
+    surf = params['surf']
+    networks = params['networks']
+    hemi = params['hemi']
+    tmp = params['tmp']
+
+    network_indices, network_labels, _ = mapping.get_template_info()
 
     # Separate networks into separate darrays.
     networks_bool = [nib.load(networks).darrays[0].data == network_idx for network_idx in network_indices]

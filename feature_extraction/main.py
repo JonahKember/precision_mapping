@@ -1,22 +1,16 @@
 import os
 import argparse
-from feature_extraction import sharpness
+
 from precision_mapping.main import check_dependencies
+from feature_extraction import clusters, utils, surface_area, sharpness
 
 def parse_arguments():
     """Parse command-line arguments."""
 
     parser = argparse.ArgumentParser(description='Run precision functional mapping.')
-
-    # Input BOLD time-series.
     parser.add_argument('--func', required=True, help='Path to GIFTI (.func.gii) BOLD time-series file. TRs stored as individual darrays.')
-
-    # Input mid-thickness surface file.
     parser.add_argument('--surf', required=True, help='Path to GIFTI (.surf.gii) mid-thickness surface file.')
-
-    # Output directory to store results
     parser.add_argument('--output', required=True, help='Directory to store output results.')
-
 
     return parser.parse_args()
 
@@ -28,8 +22,8 @@ def prepare_parameters(args):
         'func': args.func,
         'surf': args.surf,
         'output': args.output,
-        'tmp': f'{args.output}/tmp',  # define temporary directory in 'output'.
-        'hemi': args.func.split('.func.gii')[0][-1]  # Extract hemisphere from file name.
+        'tmp': f'{args.output}/tmp',
+        'hemi': args.func.split('.func.gii')[0][-1]
     }
 
     params['networks'] = f"{args.output}/networks.{params['hemi']}.label.gii"
@@ -41,11 +35,19 @@ def prepare_parameters(args):
 
 
 def main():
+
+    # Set-up.
     check_dependencies()
     args = parse_arguments()
     params = prepare_parameters(args)
-    sharpness.get_boundary_sharpness(params)
 
+    # Prepare clusters and dataframe to hold results.
+    clusters.get_clusters(params)
+    utils.initialize_dataframe(params)
+
+    # Extract features.
+    surface_area.get_surface_area(params)
+    sharpness.get_boundary_sharpness(params)
 
 if __name__ == '__main__':
     main()

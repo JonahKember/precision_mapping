@@ -6,16 +6,6 @@ from scipy.stats import zscore
 from scipy.spatial import cKDTree
 
 
-def get_template_info():
-    '''Get indices and labels of the template network.'''
-
-    network_tbl = pd.read_csv('./precision_mapping/data/networks_table.csv')
-    network_indices = list(network_tbl['idx'])
-    network_labels = list(network_tbl['label'])
-
-    return network_indices, network_labels
-
-
 def get_cohens_d(data_1, data_2):
     '''Calculate Cohen's d effect-size difference (absolute value).'''
 
@@ -57,3 +47,15 @@ def get_kdtree(surf):
     tree = cKDTree(coords)
 
     return tree
+
+
+def initialize_dataframe(params):
+
+    hemi = params['hemi']
+    tmp = params['tmp']
+    output = params['output']
+
+    n_clusters = len(nib.load(f'{tmp}/clusters.{hemi}.func.gii').darrays)
+
+    df = pd.DataFrame(index=range(n_clusters), columns=['cluster_idx'], data=np.arange(0, n_clusters))
+    df.to_csv(f'{output}/features_{hemi}.csv', index=False)

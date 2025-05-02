@@ -2,7 +2,9 @@ import warnings
 import numpy as np
 import pandas as pd
 import nibabel as nib
-from feature_extraction import utils, surface
+
+from feature_extraction import utils
+from precision_mapping.mapping import get_template_info
 
 from scipy.stats import mode
 warnings.filterwarnings('ignore')
@@ -30,14 +32,15 @@ def get_boundary_sharpness(params):
     output = params['output']
     tmp = params['tmp']
 
-    network_indices, network_labels = utils.get_template_info()
+    network_indices, network_labels, _ = get_template_info()
     time_series = utils.get_time_series(func)
     coords = utils.get_surf_coords(surf)
     tree = utils.get_kdtree(surf)
     network_data = nib.load(networks).darrays[0].data
 
     # Get spatial clusters.
-    clusters_gii, borders_gii = surface.get_clusters(networks, surf, hemi, tmp)
+    clusters_gii = nib.load(f'{tmp}/clusters.{hemi}.func.gii')
+    borders_gii = nib.load(f'{tmp}/borders.{hemi}.func.gii')
 
 
     # --- Define helper function for calculating sharnpess of single cluster ---
@@ -107,9 +110,19 @@ def get_boundary_sharpness(params):
 
     # Combine into single dataframe and save to output.
     all_df = [pd.DataFrame(cluster_sharpness[idx]).assign(network_idx=idx) for idx in network_indices]
-    df = pd.concat(all_df, ignore_index=True)
-
+    sharpness_df = pd.concat(all_df, ignore_index=True)
     idx_to_label = dict(zip(network_indices, network_labels))
-    df['network_label'] =  df['network_idx'].map(idx_to_label)
+    sharpness_df['network_label'] =  sharpness_df['network_idx'].map(idx_to_label)
 
-    df.to_csv(f'{output}/sharpness.csv', index=False)
+    feature_df = pd.read_csv(f'{output}/features_{hemi}.csv')
+    df = pd.concat([feature_df, sharpness_df], axis=1)
+
+    # Reorder columns.
+    front_cols = ['cluster_idx', 'network_idx', 'network_label']
+    existing_front_cols = [col for col in front_cols if col in df.columns]
+    other_cols = [col for col in df.columns if col not in existing_front_cols]
+    df = df[existing_front_cols + other_cols]
+
+    # Rename columns.
+    df = df.rename(columns={col: f'{col}_sharpness' for col in network_labels})
+    df.to_csv(f'{output}/features_{hemi}.csv', index=False)

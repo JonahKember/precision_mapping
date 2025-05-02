@@ -7,6 +7,29 @@ import nibabel as nib
 
 from scipy.stats import zscore
 from scipy.spatial.distance import dice
+from importlib import resources
+
+
+def get_template_gii(hemi):
+    '''Get template GIFTI.'''
+
+    filename = resources.files('precision_mapping.data') / f'networks.32k.{hemi}.label.gii'
+    gii = nib.load(filename)
+
+    return gii
+
+
+def get_template_info():
+    '''Get indices, labels, and colors of the template network.'''
+
+    filename = resources.files('precision_mapping.data') / 'networks_table.csv'
+    df = pd.read_csv(filename)
+    indices = list(df['idx'])
+    labels = list(df['label'])
+    colors = [eval(color) for color in list(df['color'])]
+
+    return indices, labels, colors
+
 
 def create_func_gii(data, hemi, map_names):
     '''Convert data-arrays to func GIFTI.'''
@@ -32,10 +55,7 @@ def create_label_gii(data, hemi, map_name):
     '''Convert data-array to label GIFTI with network colors/keys in label-tabel.'''
 
     # Load template network info.
-    df = pd.read_csv('./precision_mapping/data/networks_table.csv')
-    label_names = list(df['label'])
-    label_indices = list(df['idx'])
-    label_colors = [eval(color) for color in list(df['color'])]
+    label_indices, label_names, label_colors = get_template_info()
 
     # Create data-array.
     darray = nib.gifti.GiftiDataArray(np.int32(data), intent=nib.nifti1.intent_codes['NIFTI_INTENT_NONE'])
@@ -68,10 +88,8 @@ def run(params):
     tmp = params['tmp']
 
     # Load template networks.
-    df = pd.read_csv('./precision_mapping/data/networks_table.csv')
-    template = nib.load(f'./precision_mapping/data/networks.32k.{hemi}.label.gii').darrays[0].data
-    template_labels = list(df['label'])
-    template_indices = list(df['idx'])
+    template = get_template_gii(hemi).darrays[0].data
+    template_indices, template_labels, _ = get_template_info()
 
     # Create a vertex-by-vertex functional connectivity matrix.
     func_gii = nib.load(params['func'])

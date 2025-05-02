@@ -1,6 +1,6 @@
 import os
 import argparse
-import sharpness
+from feature_extraction import sharpness
 from precision_mapping.main import check_dependencies
 
 def parse_arguments():

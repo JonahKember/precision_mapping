@@ -3,7 +3,7 @@ import numpy as np
 import nibabel as nib
 
 from precision_mapping import mapping
-import utils
+from feature_extraction import utils
 
 
 def get_clusters(networks, surf, hemi, tmp):

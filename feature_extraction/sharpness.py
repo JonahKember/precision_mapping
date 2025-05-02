@@ -2,7 +2,7 @@ import warnings
 import numpy as np
 import pandas as pd
 import nibabel as nib
-import utils, surface
+from feature_extraction import utils, surface
 
 from scipy.stats import mode
 warnings.filterwarnings('ignore')

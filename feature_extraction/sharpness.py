@@ -53,11 +53,13 @@ def get_boundary_sharpness(params):
         cluster_network: the network label with which the current cluster belongs.
         '''
 
+        cluster_data_bool = np.array([bool(x) for x in cluster_data])
+
         border_vertices = np.argwhere(border_data).flatten()
-        cluster_network, _ = mode(network_data[np.bool(cluster_data)])
+        cluster_network, _ = mode(network_data[cluster_data_bool])
 
         # Get cluster time-series (mean BOLD signal across vertices within the cluster).
-        cluster_xs = time_series[:,np.bool(cluster_data)].mean(axis=1)
+        cluster_xs = time_series[:,cluster_data_bool].mean(axis=1)
 
         # Get list of nearby vertices (i.e., those +/- the specified distance) for each border vertex.
         all_nearby_vertices = [np.array(tree.query_ball_point(coords[border_vertex], r=distance)) for border_vertex in border_vertices]

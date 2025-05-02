@@ -26,16 +26,16 @@ def get_clusters(networks, surf, hemi, tmp):
     # Separate networks into separate darrays.
     networks_bool = [nib.load(networks).darrays[0].data == network_idx for network_idx in network_indices]
     network_gii = mapping.create_func_gii(networks_bool, hemi=hemi, map_names=network_labels)
-    nib.save(network_gii, f'networks_separated.{hemi}.func.gii')
+    nib.save(network_gii, f'{tmp}/networks_separated.{hemi}.func.gii')
 
     # Identify clusters for each network.
     subprocess.run([
         f'wb_command', '-metric-find-clusters',
-        f'{surf}',                                # <surface> - the surface to compute on
-        f'networks_separated.{hemi}.func.gii',    # <metric-in> - the input metric
-        '0',                                      # <value-threshold> - threshold for data values
-        '0',                                      # <minimum-area> - threshold for cluster area, in mm^2
-        f'{tmp}/clusters.{hemi}.func.gii'         # <metric-out> - output - the output metric
+        f'{surf}',                                    # <surface> - the surface to compute on
+        f'{tmp}/networks_separated.{hemi}.func.gii',  # <metric-in> - the input metric
+        '0',                                          # <value-threshold> - threshold for data values
+        '0',                                          # <minimum-area> - threshold for cluster area, in mm^2
+        f'{tmp}/clusters.{hemi}.func.gii'             # <metric-out> - output - the output metric
     ])
 
     # Create single darray for each cluster.

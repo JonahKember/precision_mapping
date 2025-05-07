@@ -2,7 +2,7 @@ import os
 import argparse
 
 from precision_mapping.main import check_dependencies
-from feature_extraction import clusters, utils, surface_area, sharpness
+from feature_extraction import clusters, connectivity, utils, surface_area, sharpness
 
 def parse_arguments():
     """Parse command-line arguments."""
@@ -47,6 +47,7 @@ def main():
 
     # Extract features.
     surface_area.get_surface_area(params)
+    connectivity.get_network_connectivity(params)
     sharpness.get_boundary_sharpness(params)
 
 if __name__ == '__main__':

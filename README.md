@@ -30,11 +30,12 @@ options:
 *requires [Connectome Workbench](https://www.humanconnectome.org/software/get-connectome-workbench) to be installed.
 
 ## Outputs
-### networks.L.label.gii
-![Network assignments](/precision_mapping/data/precision_networks_example.png)
 
+### precision_mapping
+![networks](/precision_mapping/data/figures/networks.png)
+![network_similarities](/precision_mapping/data/figures/network_similarities.png)
+![clusters](/precision_mapping/data/figures/clusters.png)
+![borders](/precision_mapping/data/figures/borders.png)
 
-
-### network_similarities.L.func.gii
-![Network assignments](/precision_mapping/data/spatial_similarity_example.png)
-Spatial similarity of each network, stored as a GIFTI darray.
+### feature_extraction
+![features](/precision_mapping/data/figures/features.png)

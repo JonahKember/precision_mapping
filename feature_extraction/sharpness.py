@@ -11,7 +11,7 @@ warnings.filterwarnings('ignore')
 
 
 def get_boundary_sharpness(params):
-    '''Calculates the 'boundary-sharnpess of each network.
+    '''Calculates the boundary-sharnpess of each network.
 
     1. Identify the spatially contiguous clusters that make up the 'networks' label file.
     2. Take the mean BOLD time-series across vertices within the cluster.
@@ -24,7 +24,7 @@ def get_boundary_sharpness(params):
     4. Take the average boundary sharpness across border vertices, write to .csv
     '''
 
-    # --- Set-up ---
+    # Set-up.
     func = params['func']
     surf = params['surf']
     hemi = params['hemi']
@@ -97,7 +97,7 @@ def get_boundary_sharpness(params):
         return cluster_sharpness, cluster_network
 
 
-    # --- Get boundary sharpness of each cluster ---
+    # Get boundary sharpness of each cluster.
     cluster_sharpness = {idx:[] for idx in network_indices}
 
     for cluster_darray, border_darray  in zip(clusters_gii.darrays, borders_gii.darrays):
@@ -124,5 +124,5 @@ def get_boundary_sharpness(params):
     df = df[existing_front_cols + other_cols]
 
     # Rename columns.
-    df = df.rename(columns={col: f'{col}_sharpness' for col in network_labels})
+    df = df.rename(columns={col: f'{col}__sharpness' for col in network_labels})
     df.to_csv(f'{output}/features_{hemi}.csv', index=False)

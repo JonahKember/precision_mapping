@@ -77,7 +77,7 @@ def create_label_gii(data, hemi, map_name):
     return gifti
 
 
-def run(args):
+def run_mapping(args):
     '''Perform vertex-wise template matching.'''
 
     print(f'Running precision-mapping...')
@@ -170,6 +170,3 @@ def run(args):
     # Save final dilated solution.
     gii = create_label_gii(dilated_data, hemi, 'precision_networks')
     nib.save(gii, f'{output}/networks.{hemi}.label.gii')
-
-    # Delete temporary files.
-    shutil.rmtree(tmp)

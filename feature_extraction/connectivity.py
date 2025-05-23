@@ -13,7 +13,7 @@ def get_network_connectivity(args):
     func = args.func
     hemi = args.hemi
     output = args.output
-    tmp = f'{args.output}tmp'
+    tmp = f'{args.output}/tmp'
     networks = args.networks
 
     network_indices, network_labels, _ = mapping.get_template_info()

@@ -49,11 +49,11 @@ def get_kdtree(surf):
     return tree
 
 
-def initialize_dataframe(params):
+def initialize_dataframe(args):
 
-    hemi = params['hemi']
-    tmp = params['tmp']
-    output = params['output']
+    hemi = args.hemi
+    output = args.output
+    tmp = f'{output}/tmp'
 
     n_clusters = len(nib.load(f'{tmp}/clusters.{hemi}.func.gii').darrays)
 

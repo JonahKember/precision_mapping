@@ -1,10 +1,9 @@
 import os
 import shutil
 import argparse
-import feature_extraction
-import cortex_mapping
-import feature_extraction
 
+from cortex_mapping.mapping import run_mapping
+from feature_extraction.pipeline import extract_features
 
 def main():
 
@@ -24,8 +23,8 @@ def main():
     os.makedirs(args.output, exist_ok=True)
     os.makedirs(f'{args.output}/tmp', exist_ok=True)
 
-    cortex_mapping.mapping.run_mapping(args)
-    feature_extraction.extract_features(args)
+    run_mapping(args)
+    extract_features(args)
 
 
 if __name__ == '__main__':

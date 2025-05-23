@@ -13,7 +13,7 @@ from importlib import resources
 def get_template_gii(hemi):
     '''Get template GIFTI.'''
 
-    filename = resources.files('precision_mapping.data') / f'networks.32k.{hemi}.label.gii'
+    filename = resources.files('cortex_mapping.data') / f'networks.32k.{hemi}.label.gii'
     gii = nib.load(filename)
 
     return gii
@@ -22,7 +22,7 @@ def get_template_gii(hemi):
 def get_template_info():
     '''Get indices, labels, and colors of the template network.'''
 
-    filename = resources.files('precision_mapping.data') / 'networks_table.csv'
+    filename = resources.files('cortex_mapping.data') / 'networks_table.csv'
     df = pd.read_csv(filename)
     indices = list(df['idx'])
     labels = list(df['label'])

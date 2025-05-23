@@ -19,6 +19,7 @@ setup(
     ],
     python_requires='>=3.6',
     package_data={
-        'precision_mapping': ['data/*'],
+        'cortex_mapping': ['data/*'],
+        'hipp_mapping': ['data/*'],
     },
 )

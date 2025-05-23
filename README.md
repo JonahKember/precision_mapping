@@ -32,10 +32,10 @@ options:
 ## Outputs
 
 ### precision_mapping
-![networks](/precision_mapping/data/figures/networks.png)
-![network_similarities](/precision_mapping/data/figures/network_similarities.png)
-![clusters](/precision_mapping/data/figures/clusters.png)
-![borders](/precision_mapping/data/figures/borders.png)
+![networks](/cortex_mapping/data/figures/networks.png)
+![network_similarities](/cortex_mapping/data/figures/network_similarities.png)
+![clusters](/cortex_mapping/data/figures/clusters.png)
+![borders](/cortex_mapping/data/figures/borders.png)
 
 ### feature_extraction
-![features](/precision_mapping/data/figures/features.png)
+![features](/cortex_mapping/data/figures/features.png)

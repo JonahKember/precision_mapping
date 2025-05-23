@@ -4,7 +4,7 @@ import pandas as pd
 import nibabel as nib
 
 from feature_extraction import utils
-from precision_mapping.mapping import get_template_info
+from cortex_mapping.mapping import get_template_info
 
 from scipy.stats import mode
 warnings.filterwarnings('ignore')

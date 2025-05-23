@@ -1,7 +1,7 @@
 import os
 import argparse
 
-from precision_mapping.main import check_dependencies
+from cortex_mapping.main import check_dependencies
 from feature_extraction import clusters, connectivity, utils, surface_area, sharpness
 
 def parse_arguments():

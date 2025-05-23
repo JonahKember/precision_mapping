@@ -3,7 +3,7 @@ import pandas as pd
 import nibabel as nib
 
 from feature_extraction import utils
-from precision_mapping import mapping
+from cortex_mapping import mapping
 
 
 def get_network_connectivity(params):

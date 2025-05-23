@@ -2,7 +2,7 @@ import subprocess
 import numpy as np
 import nibabel as nib
 
-from precision_mapping import mapping
+from cortex_mapping import mapping
 
 
 def get_clusters(params):

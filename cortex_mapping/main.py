@@ -1,7 +1,7 @@
 import os
 import shutil
 import argparse
-from precision_mapping import mapping
+from cortex_mapping import mapping
 
 
 def check_dependencies():

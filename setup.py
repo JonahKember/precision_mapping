@@ -7,6 +7,7 @@ setup(
     entry_points={
         'console_scripts': [
             'precision_mapping = precision_mapping.main:main',
+            'hipp_mapping = hipp_mapping.main:main',
             'feature_extraction = feature_extraction.main:main'
         ],
     },

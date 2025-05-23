@@ -1,7 +1,8 @@
 import os
 import shutil
 import argparse
-import mapping
+
+from hipp_mapping import mapping
 
 
 def main():

@@ -10,7 +10,7 @@ from scipy.stats import mode
 warnings.filterwarnings('ignore')
 
 
-def get_boundary_sharpness(params):
+def get_boundary_sharpness(args):
     '''Calculates the boundary-sharnpess of each network.
 
     1. Identify the spatially contiguous clusters that make up the 'networks' label file.
@@ -25,12 +25,12 @@ def get_boundary_sharpness(params):
     '''
 
     # Set-up.
-    func = params['func']
-    surf = params['surf']
-    hemi = params['hemi']
-    networks = params['networks']
-    output = params['output']
-    tmp = params['tmp']
+    func = args.func
+    surf = args.surf
+    hemi = args.hemi
+    networks = args.networks
+    output = args.output
+    tmp = f'{args.output}/tmp'
 
     network_indices, network_labels, _ = get_template_info()
     time_series = utils.get_time_series(func)

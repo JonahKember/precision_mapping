@@ -6,15 +6,15 @@ from feature_extraction import utils
 from cortex_mapping import mapping
 
 
-def get_network_connectivity(params):
+def get_network_connectivity(args):
     '''Calculate the mean network-wise connectivity of each spatial cluster.'''
 
     #  Set-up
-    func = params['func']
-    hemi = params['hemi']
-    output = params['output']
-    tmp = params['tmp']
-    networks = params['networks']
+    func = args.func
+    hemi = args.hemi
+    output = args.output
+    tmp = f'{args.output}tmp'
+    networks = args.networks
 
     network_indices, network_labels, _ = mapping.get_template_info()
     clusters = nib.load(f'{tmp}/clusters.{hemi}.func.gii')

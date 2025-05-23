@@ -5,7 +5,7 @@ import nibabel as nib
 from cortex_mapping import mapping
 
 
-def get_clusters(params):
+def get_clusters(args):
     '''
     Identify spatial clusters and their border vertices.
 
@@ -21,10 +21,10 @@ def get_clusters(params):
     '''
 
     # --- Set up ---
-    surf = params['surf']
-    networks = params['networks']
-    hemi = params['hemi']
-    tmp = params['tmp']
+    surf = args.surf
+    networks = args.networks
+    hemi = args.hemi
+    tmp = f'{args.output}/tmp'
 
     network_indices, network_labels, _ = mapping.get_template_info()
 

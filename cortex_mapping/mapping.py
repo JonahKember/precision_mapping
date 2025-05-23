@@ -77,22 +77,22 @@ def create_label_gii(data, hemi, map_name):
     return gifti
 
 
-def run(params):
-    '''Perform vertx-wise template matching.'''
+def run(args):
+    '''Perform vertex-wise template matching.'''
 
     print(f'Running precision-mapping...')
 
     # Extract relevant parameters.
-    hemi = params['hemi']
-    output = params['output']
-    tmp = params['tmp']
+    hemi = args.func.split('.func.gii')[0][-1]
+    output = args.output
+    tmp = f'{args.output}/tmp'
 
     # Load template networks.
     template = get_template_gii(hemi).darrays[0].data
     template_indices, template_labels, _ = get_template_info()
 
     # Create a vertex-by-vertex functional connectivity matrix.
-    func_gii = nib.load(params['func'])
+    func_gii = nib.load(args.func)
     time_series = np.vstack([darray.data for darray in func_gii.darrays])
     time_series_norm = zscore(time_series)
     FC = np.corrcoef(time_series_norm.T)
@@ -139,9 +139,9 @@ def run(params):
 
         # Find clusters that are larger than threshold.
         os.system(f'wb_command -metric-find-clusters \
-            {params["surf"]} \
+            {args.surf} \
             {tmp}/{label}.{hemi}.label.gii 0 \
-            {params["dilation_threshold"]} \
+            {args.dilation_threshold} \
             {tmp}/{label}.{hemi}.func.gii'
         )
 
@@ -158,7 +158,7 @@ def run(params):
     # Interpolate/dilate removed clusters to nearest network.
     os.system(f'wb_command -metric-dilate \
         {tmp}/filtered_networks.{hemi}.label.gii \
-        {params["surf"]} 3000 \
+        {args.surf} 3000 \
         {tmp}/tmp_dilated.{hemi}.func.gii \
         -nearest'
     )

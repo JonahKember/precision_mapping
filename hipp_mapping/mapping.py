@@ -66,7 +66,7 @@ def nan_corr(x, y):
     return r
 
 
-def run(args):
+def run_mapping(args):
 
     # Parse input arguments.
     midthickness = args.hipp_midthickness
@@ -75,7 +75,7 @@ def run(args):
     dilation = args.dilation_threshold
     kernel_fwhm = args.kernel_fwhm
     output = args.output
-    hemi = args.surface_dtseries.split('.func.gii')[0][-1]
+    hemi = args.hemi
 
     # Project BOLD time-series from volume to surface via trilinear interpolation and smooth.
     hipp_dtseries_gii = f'{output}/hipp_dtseries.{hemi}.func.gii'

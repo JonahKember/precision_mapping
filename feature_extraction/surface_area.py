@@ -3,13 +3,13 @@ import numpy as np
 import pandas as pd
 import nibabel as nib
 
-def get_surface_area(params):
+def get_surface_area(args):
 
     #  Set-up
-    surf = params['surf']
-    hemi = params['hemi']
-    output = params['output']
-    tmp = params['tmp']
+    surf = args.surf
+    hemi = args.hemi
+    output = args.output
+    tmp = f'{args.output}/tmp'
 
     # Get cluster surface-areas
     subprocess.run([
